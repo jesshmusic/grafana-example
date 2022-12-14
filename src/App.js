@@ -1,16 +1,42 @@
 import "./styles.css";
-import { Table } from "@grafana/ui";
-import { merge, isNumber, cloneDeep } from "lodash";
+import { css } from '@emotion/css';
+import { Table, useTheme2 } from "@grafana/ui";
 import {
   applyFieldOverrides,
   FieldType,
-  GrafanaTheme2,
-  MutableDataFrame
-} from "@grafana/data";
+  MutableDataFrame,
+  ThresholdsMode
+} from '@grafana/data';
 import { products } from "./products";
+import './normalize.css';
 
-export default function App() {
-  const theme = GrafanaTheme2;
+const defaultThresholds = {
+  steps: [
+    {
+      color: 'blue',
+      value: 0,
+    },
+    {
+      color: 'green',
+      value: 2.5,
+    },
+  ],
+  mode: ThresholdsMode.Absolute,
+};
+
+const prepData = (data, theme) => {
+  return applyFieldOverrides({
+    data: data,
+    fieldConfig: {
+      overrides: [],
+      defaults: {},
+    },
+    theme,
+    replaceVariables: (value) => value,
+  });
+}
+
+const buildData = (theme) => {
   const data = new MutableDataFrame({
     fields: [
       { name: "Title", type: FieldType.string, values: [] },
@@ -20,7 +46,7 @@ export default function App() {
         type: FieldType.number,
         values: [],
         config: {
-          unit: "currency",
+          unit: "currencyUSD",
           decimals: 0,
           custom: {
             align: "center",
@@ -60,11 +86,14 @@ export default function App() {
         type: FieldType.number,
         values: [],
         config: {
+          decimals: 2,
           min: 0,
-          max: 100,
+          max: 5,
           custom: {
-            width: 150
-          }
+            width: 300,
+            displayMode: 'gradient-gauge',
+          },
+          thresholds: defaultThresholds,
         }
       }
     ]
@@ -75,19 +104,30 @@ export default function App() {
       product.title,
       product.description,
       product.price,
-      product.discount,
+      product.discountPercentage,
       product.brand,
       product.category,
       product.stock,
       product.rating
     ]);
   });
-  console.log(data);
+
+  return prepData([data], theme);
+}
+
+export default function App() {
+  const theme = useTheme2();
+  const data = buildData(theme);
+  const style = css`
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    background: ${theme.colors.background.canvas};
+  `;
+
   return (
-    <div className="App">
-      <div className="pageContainer">
-        <Table data={data} height={800} width={800} />
-      </div>
+    <div className={style}>
+      <Table data={data[0]} height={800} width={1500} columnMinWidth={200} />
     </div>
   );
 }
