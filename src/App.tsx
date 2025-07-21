@@ -7,7 +7,7 @@ import {
   MutableDataFrame,
   ThresholdsMode
 } from '@grafana/data';
-import { products } from "./products";
+import { products, Product } from "./products";
 import './normalize.css';
 
 const defaultThresholds = {
@@ -24,7 +24,7 @@ const defaultThresholds = {
   mode: ThresholdsMode.Absolute,
 };
 
-const prepData = (data, theme) => {
+const prepData = (data: any, theme: any) => {
   return applyFieldOverrides({
     data: data,
     fieldConfig: {
@@ -32,11 +32,11 @@ const prepData = (data, theme) => {
       defaults: {},
     },
     theme,
-    replaceVariables: (value) => value,
+    replaceVariables: (value: any) => value,
   });
 }
 
-const buildData = (theme) => {
+const buildData = (theme: any) => {
   const data = new MutableDataFrame({
     fields: [
       { name: "Title", type: FieldType.string, values: [] },
@@ -99,7 +99,7 @@ const buildData = (theme) => {
     ]
   });
 
-  products.forEach((product) => {
+  products.forEach((product: Product) => {
     data.appendRow([
       product.title,
       product.description,

@@ -1,4 +1,19 @@
-export const products = [
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
+
+export const products: Product[] = [
+
   {
     id: 1,
     title: "iPhone 9",
@@ -573,4 +588,4 @@ export const products = [
       "https://i.dummyjson.com/data/products/30/thumbnail.jpg"
     ]
   }
-];
+]
