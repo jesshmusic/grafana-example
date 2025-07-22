@@ -1,5 +1,11 @@
 # Grafana Example Frontend
 
+![TypeScript](https://img.shields.io/badge/code-typescript-blue?logo=typescript)
+![React](https://img.shields.io/badge/framework-react-61DAFB?logo=react)
+![Yarn](https://img.shields.io/badge/package%20manager-yarn-2C8EBB?logo=yarn)
+![Build](https://github.com/jesshmusic/grafana-example/actions/workflows/master.yml/badge.svg)
+
+
 A React + TypeScript frontend for visualizing product data from a Node.js GraphQL API.
 
 ## Features
