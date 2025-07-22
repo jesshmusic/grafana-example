@@ -1,9 +1,9 @@
 import "./styles.css";
-import { css } from '@emotion/css';
+import { css } from "@emotion/css";
 import { Table, useTheme2 } from "@grafana/ui";
-import './normalize.css';
+import "./normalize.css";
 import { useQuery } from "@apollo/client";
-import { PRODUCTS_QUERY, buildData } from './api';
+import { PRODUCTS_QUERY, buildData } from "./api";
 
 export default function App() {
   const theme = useTheme2();
@@ -24,8 +24,12 @@ export default function App() {
 
   return (
     <div className={style}>
-      <Table data={tableData[0]} height={800} width={1500} columnMinWidth={200} />
+      <Table
+        data={tableData[0]}
+        height={800}
+        width={1500}
+        columnMinWidth={200}
+      />
     </div>
   );
 }
-

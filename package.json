@@ -15,21 +15,27 @@
     "lodash": "4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-scripts": "4.0.0"
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
     "@emotion/css": "^11.11.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "prettier": "^3.0.0",
     "typescript": "^5.0.0"
   },
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --write ."
   },
   "browserslist": [
     ">0.2%",

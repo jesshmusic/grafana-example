@@ -1,6 +1,11 @@
 import { gql } from "@apollo/client";
-import { applyFieldOverrides, FieldType, MutableDataFrame, ThresholdsMode } from "@grafana/data";
-import type { Product } from './products';
+import {
+  applyFieldOverrides,
+  FieldType,
+  MutableDataFrame,
+  ThresholdsMode,
+} from "@grafana/data";
+import type { Product } from "./products";
 
 export const PRODUCTS_QUERY = gql`
   query {
@@ -20,11 +25,10 @@ export const PRODUCTS_QUERY = gql`
   }
 `;
 
-
 const defaultThresholds = {
   steps: [
-    { color: 'blue', value: 0 },
-    { color: 'green', value: 2.5 },
+    { color: "blue", value: 0 },
+    { color: "green", value: 2.5 },
   ],
   mode: ThresholdsMode.Absolute,
 };
@@ -53,8 +57,8 @@ export function buildData(products: Product[], theme: any) {
         config: {
           unit: "currencyUSD",
           decimals: 0,
-          custom: { align: "center", width: 80 }
-        }
+          custom: { align: "center", width: 80 },
+        },
       },
       {
         name: "Discount",
@@ -63,8 +67,8 @@ export function buildData(products: Product[], theme: any) {
         config: {
           unit: "percent",
           decimals: 2,
-          custom: { align: "center", width: 80 }
-        }
+          custom: { align: "center", width: 80 },
+        },
       },
       { name: "Brand", type: FieldType.string, values: [] },
       { name: "Category", type: FieldType.string, values: [] },
@@ -74,8 +78,8 @@ export function buildData(products: Product[], theme: any) {
         values: [],
         config: {
           decimals: 0,
-          custom: { align: "center", width: 80 }
-        }
+          custom: { align: "center", width: 80 },
+        },
       },
       {
         name: "Rating",
@@ -87,9 +91,9 @@ export function buildData(products: Product[], theme: any) {
           max: 5,
           custom: { width: 300, displayMode: "gradient-gauge" },
           thresholds: defaultThresholds,
-        }
-      }
-    ]
+        },
+      },
+    ],
   });
 
   products.forEach((product) => {
