@@ -1,23 +1,37 @@
-import {applyFieldOverrides, FieldType, MutableDataFrame, ThresholdsMode} from '@grafana/data';
-import {Product, products} from './products';
+import { gql } from "@apollo/client";
+import { applyFieldOverrides, FieldType, MutableDataFrame, ThresholdsMode } from "@grafana/data";
+import type { Product } from './products';
+
+export const PRODUCTS_QUERY = gql`
+  query {
+    products {
+      id
+      title
+      description
+      price
+      discountPercentage
+      rating
+      stock
+      brand
+      category
+      thumbnail
+      images
+    }
+  }
+`;
+
 
 const defaultThresholds = {
   steps: [
-    {
-      color: 'blue',
-      value: 0,
-    },
-    {
-      color: 'green',
-      value: 2.5,
-    },
+    { color: 'blue', value: 0 },
+    { color: 'green', value: 2.5 },
   ],
   mode: ThresholdsMode.Absolute,
 };
 
-const prepData = (data: any, theme: any) => {
+export const prepData = (data: any, theme: any) => {
   return applyFieldOverrides({
-    data: data,
+    data,
     fieldConfig: {
       overrides: [],
       defaults: {},
@@ -25,10 +39,10 @@ const prepData = (data: any, theme: any) => {
     theme,
     replaceVariables: (value: any) => value,
   });
-}
+};
 
-export const buildData = (theme: any) => {
-  const data = new MutableDataFrame({
+export function buildData(products: Product[], theme: any) {
+  const dataFrame = new MutableDataFrame({
     fields: [
       { name: "Title", type: FieldType.string, values: [] },
       { name: "Description", type: FieldType.string, values: [] },
@@ -39,10 +53,7 @@ export const buildData = (theme: any) => {
         config: {
           unit: "currencyUSD",
           decimals: 0,
-          custom: {
-            align: "center",
-            width: 80
-          }
+          custom: { align: "center", width: 80 }
         }
       },
       {
@@ -52,10 +63,7 @@ export const buildData = (theme: any) => {
         config: {
           unit: "percent",
           decimals: 2,
-          custom: {
-            align: "center",
-            width: 80
-          }
+          custom: { align: "center", width: 80 }
         }
       },
       { name: "Brand", type: FieldType.string, values: [] },
@@ -66,10 +74,7 @@ export const buildData = (theme: any) => {
         values: [],
         config: {
           decimals: 0,
-          custom: {
-            align: "center",
-            width: 80
-          }
+          custom: { align: "center", width: 80 }
         }
       },
       {
@@ -80,18 +85,15 @@ export const buildData = (theme: any) => {
           decimals: 2,
           min: 0,
           max: 5,
-          custom: {
-            width: 300,
-            displayMode: 'gradient-gauge',
-          },
+          custom: { width: 300, displayMode: "gradient-gauge" },
           thresholds: defaultThresholds,
         }
       }
     ]
   });
 
-  products.forEach((product: Product) => {
-    data.appendRow([
+  products.forEach((product) => {
+    dataFrame.appendRow([
       product.title,
       product.description,
       product.price,
@@ -99,9 +101,9 @@ export const buildData = (theme: any) => {
       product.brand,
       product.category,
       product.stock,
-      product.rating
+      product.rating,
     ]);
   });
 
-  return prepData([data], theme);
+  return prepData([dataFrame], theme);
 }

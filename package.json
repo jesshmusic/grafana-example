@@ -8,8 +8,10 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@grafana/data": "9.3.1",
     "@grafana/ui": "9.3.1",
+    "graphql": "^16.11.0",
     "lodash": "4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -17,11 +19,11 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
-    "typescript": "^5.0.0",
+    "@emotion/css": "^11.11.3",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@types/node": "^20.0.0",
-    "@emotion/css": "^11.11.3"
+    "typescript": "^5.0.0"
   },
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
