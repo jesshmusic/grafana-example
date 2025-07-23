@@ -7,7 +7,7 @@ const DEBUG_API = false;
 const API_ENDPOINT =
   window.location.hostname.includes("localhost") && DEBUG_API
     ? "http://localhost:4000/"
-    : "http://grafana-example-api-env.eba-ds8urzz2.us-east-1.elasticbeanstalk.com";
+    : "https://grafana-example-api.existentialmusic.com/graphql";
 
 const client = new ApolloClient({
   uri: API_ENDPOINT,
