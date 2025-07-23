@@ -21,6 +21,10 @@ export const PRODUCTS_QUERY = gql`
       category
       thumbnail
       images
+      historicalPrices {
+        date
+        price
+      }
     }
   }
 `;

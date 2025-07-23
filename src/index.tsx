@@ -3,10 +3,10 @@ import { createRoot } from "react-dom/client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 
-const DEBUG_API = false;
+const DEBUG_API = true;
 const API_ENDPOINT =
   window.location.hostname.includes("localhost") && DEBUG_API
-    ? "http://localhost:4000/"
+    ? "http://localhost:8081/graphql"
     : "https://grafana-example-api.existentialmusic.com/graphql";
 
 const client = new ApolloClient({
