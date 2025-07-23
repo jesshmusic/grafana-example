@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 
-const DEBUG_API = true;
+const DEBUG_API = false;
 const API_ENDPOINT =
   window.location.hostname.includes("localhost") && DEBUG_API
     ? "http://localhost:8081/graphql"

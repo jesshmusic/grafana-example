@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import {
   applyFieldOverrides,
+  DataFrame,
   FieldType,
   MutableDataFrame,
   ThresholdsMode,
@@ -8,7 +9,7 @@ import {
 import type { Product } from "./products";
 
 export const PRODUCTS_QUERY = gql`
-  query {
+  query Products {
     products {
       id
       title
@@ -114,4 +115,25 @@ export function buildData(products: Product[], theme: any) {
   });
 
   return prepData([dataFrame], theme);
+}
+
+export function buildGraphData(products: Product[]): DataFrame[] {
+  return products.map(
+    (product) =>
+      new MutableDataFrame({
+        name: product.title,
+        fields: [
+          {
+            name: "time",
+            type: FieldType.time,
+            values: product.historicalPrices.map((p) => p.date),
+          },
+          {
+            name: "price",
+            type: FieldType.number,
+            values: product.historicalPrices.map((p) => p.price),
+          },
+        ],
+      }),
+  );
 }

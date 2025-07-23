@@ -13,8 +13,10 @@
     "@grafana/ui": "9.3.1",
     "graphql": "^16.11.0",
     "lodash": "4.17.21",
+    "plotly.js": "^3.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-plotly.js": "^2.6.0",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
@@ -25,8 +27,10 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
+    "@types/plotly.js": "^3.0.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-plotly.js": "^2.6.3",
     "prettier": "^3.0.0",
     "typescript": "^5.0.0"
   },
