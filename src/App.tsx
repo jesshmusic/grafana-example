@@ -39,6 +39,30 @@ const App = () => {
     <div className={container}>
       <h1>Visualization and Grafana Examples</h1>
       <div className={section}>
+        <p>
+          This demo visualizes a set of sample products, each with a 30-day
+          simulated price history. Use the table below to explore product
+          metadata, and the interactive graph to compare price trends over time.
+          Click or double-click legend entries to focus on individual products.
+          The data is randomly generated on the server for demonstration and
+          testing of time series visualizations.
+        </p>
+        <ul style={{ padding: "0 16px" }}>
+          <li>
+            <strong>Products:</strong> Each includes title, brand, category,
+            images, and rating
+          </li>
+          <li>
+            <strong>Price History:</strong> 30 days of simulated price data per
+            product
+          </li>
+          <li>
+            <strong>Graph Features:</strong> Transparent background, bright
+            text, interactive legend
+          </li>
+        </ul>
+      </div>
+      <div className={section}>
         <h2>Table</h2>
         <Table
           data={tableData[0]}

@@ -11,6 +11,7 @@ A React + TypeScript frontend for visualizing product data from a Node.js GraphQ
 ## Features
 
 - Product table powered by Grafana UI components
+- Time series price history graph powered by Plotly (30-day price trend for each product)
 - Data fetched live from a backend GraphQL API (local or AWS)
 - Prettier code formatting
 - Unit testing with Jest and React Testing Library
@@ -35,8 +36,8 @@ A React + TypeScript frontend for visualizing product data from a Node.js GraphQ
     ```bash
     yarn start
     ```
-    - The frontend connects to `http://localhost:4000/` by default if you open it on localhost.
-    - For production, it uses your AWS Elastic Beanstalk API endpoint.
+   - The frontend connects to `http://localhost:4000/` by default if you open it on localhost.
+   - For production, it uses your AWS Elastic Beanstalk API endpoint.
 
 4. **Run tests:**
 
