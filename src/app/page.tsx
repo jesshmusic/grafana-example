@@ -1,54 +1,102 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Table as GrafanaTable, useTheme2 } from "@grafana/ui";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
+import React from "react";
+import { useQuery } from "@apollo/client";
+import { buildData, buildGraphData, PRODUCTS_QUERY } from "@/lib/api";
+import { css } from "@emotion/css";
+import { PlotParams } from "react-plotly.js";
+
+const Table = GrafanaTable as unknown as React.FC<any>;
 
 export default function Home() {
+  const theme = useTheme2();
+  const { data, loading, error } = useQuery(PRODUCTS_QUERY);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading products!</div>;
+
+  // Pass products array from API to buildData
+  const tableData = buildData(data.products, theme);
+  const graphData = buildGraphData(data.products);
+
+  const plotlyData = graphData.map((df) => ({
+    x: df.fields.find((f) => f.name === "time")!.values.toArray(),
+    y: df.fields.find((f) => f.name === "price")!.values.toArray(),
+    type: "scatter",
+    mode: "lines+markers",
+    name: df.name,
+  }));
+
+  const section = css`
+    margin-top: 32px;
+  `;
+
+  // @ts-ignore
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <h1>Visualization and Grafana Examples</h1>
+        <div className={section}>
+          <p>
+            This demo visualizes a set of sample products, each with a 30-day
+            simulated price history. Use the table below to explore product
+            metadata, and the interactive graph to compare price trends over
+            time. Click or double-click legend entries to focus on individual
+            products. The data is randomly generated on the server for
+            demonstration and testing of time series visualizations.
+          </p>
+          <ul style={{ padding: "0 16px" }}>
+            <li>
+              <strong>Products:</strong> Each includes title, brand, category,
+              images, and rating
+            </li>
+            <li>
+              <strong>Price History:</strong> 30 days of simulated price data
+              per product
+            </li>
+            <li>
+              <strong>Graph Features:</strong> Transparent background, bright
+              text, interactive legend
+            </li>
+          </ul>
+        </div>
+        <div className={section}>
+          <h2>Table</h2>
+          <Table
+            data={tableData[0]}
+            height={800}
+            width={1500}
+            columnMinWidth={200}
+          />
+        </div>
+        <div className={section}>
+          <h2>Plotly Graph</h2>
+          <Plot
+            data={plotlyData as PlotParams["data"]}
+            layout={{
+              width: 1500,
+              height: 800,
+              title: {
+                text: "Product Price History (30 days)",
+                font: { color: "#fff" },
+              },
+              xaxis: {
+                title: { text: "Date", font: { color: "#fff" } },
+                tickfont: { color: "#fff" },
+              },
+              yaxis: {
+                title: { text: "Price (USD)", font: { color: "#fff" } },
+                tickfont: { color: "#fff" },
+              },
+              plot_bgcolor: "rgba(0,0,0,0)",
+              paper_bgcolor: "rgba(0,0,0,0)",
+              legend: { bgcolor: "rgba(0,0,0,0)", font: { color: "#fff" } },
+            }}
+          />
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
