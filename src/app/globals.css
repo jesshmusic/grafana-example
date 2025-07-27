@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
+@theme {
+  --color-midnight-neon-900: #111827;
+  --color-midnight-neon-800: #23367c;
+  --color-midnight-neon-700: #3f4d83;
+  --color-midnight-neon-600: #7C3AED;
+  --color-midnight-neon-500: #D946EF;
+  --color-midnight-neon-400: #2DD4BF;
+  --color-midnight-neon-300: #6EE7B7;
+}
+
+/* — your custom theme vars below — */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #111827;
+  --foreground: #7C3AED;
 }
 
 @theme inline {
@@ -14,7 +25,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #111827;
     --foreground: #ededed;
   }
 }
