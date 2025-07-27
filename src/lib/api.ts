@@ -3,6 +3,7 @@ import {
   applyFieldOverrides,
   DataFrame,
   FieldType,
+  GrafanaTheme2,
   MutableDataFrame,
   ThresholdsMode,
 } from "@grafana/data";
@@ -38,7 +39,7 @@ const defaultThresholds = {
   mode: ThresholdsMode.Absolute,
 };
 
-export const prepData = (data: any, theme: any) => {
+export const prepData = (data: DataFrame[], theme: GrafanaTheme2) => {
   return applyFieldOverrides({
     data,
     fieldConfig: {
@@ -46,11 +47,11 @@ export const prepData = (data: any, theme: any) => {
       defaults: {},
     },
     theme,
-    replaceVariables: (value: any) => value,
+    replaceVariables: (value: string) => value,
   });
 };
 
-export function buildData(products: Product[], theme: any) {
+export function buildData(products: Product[], theme: GrafanaTheme2) {
   const dataFrame = new MutableDataFrame({
     fields: [
       { name: "Title", type: FieldType.string, values: [] },

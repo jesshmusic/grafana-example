@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fira_Code, Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import ApolloWrapper from "@/components/ApolloWrapper";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const josefinSans = Josefin_Sans({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-josefin",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const geistMono = Fira_Code({
+  variable: "--font-firacode",
   subsets: ["latin"],
 });
 
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${josefinSans.variable} ${geistMono.variable} antialiased`}
       >
         <ApolloWrapper>
           <Header />
