@@ -34,5 +34,5 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync out/ s3://grafana-example-frontend \
-            --delete \
-            --acl public-read
+            --delete
+   
