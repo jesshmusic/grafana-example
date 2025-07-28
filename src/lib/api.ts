@@ -31,6 +31,20 @@ export const PRODUCTS_QUERY = gql`
   }
 `;
 
+export const SAMPLE_PRODUCTS_QUERY = gql`
+  query SampleProducts {
+    products(limit: 5) {
+      id
+      title
+      price
+      historicalPrices {
+        date
+        price
+      }
+    }
+  }
+`;
+
 const defaultThresholds = {
   steps: [
     { color: "blue", value: 0 },

@@ -2,7 +2,7 @@
 
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const DEBUG_API = false;
+const DEBUG_API = true;
 
 const isBrowser = typeof window !== "undefined";
 
